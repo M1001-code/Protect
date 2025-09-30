@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000; /* noir profond */
+  --foreground: #ffffff; /* texte blanc */
+  --accent: #00ff88; /* vert cybersécurité */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Forcer le thème sombre par défaut */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --foreground: #ffffff;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Utilitaires simples pour l'accent vert */
+.text-accent { color: var(--accent); }
+.bg-accent { background-color: var(--accent); }
+.border-accent { border-color: var(--accent); }
+.focus-accent:focus { outline-color: var(--accent); }
+
+/* Cartes et animations modernes */
+@keyframes in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-in-up {
+  animation: in-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    linear-gradient(180deg, rgba(0, 255, 136, 0.06), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 255, 136, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 30px -10px rgba(0, 255, 136, 0.35), 0 0 0 1px rgba(0, 255, 136, 0.35) inset;
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+.number-glow {
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.45);
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stats-surrounding {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 3rem;
+}
+
+/* Flip Card 3D */
+.flip-card-container {
+  perspective: 1000px;
+  height: 280px;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 0, 0, 0.6));
+  box-shadow: 0 8px 20px rgba(0, 255, 136, 0.15);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 0, 0, 0.8));
+  border-color: rgba(0, 255, 136, 0.5);
+}
+
+/* Hero slogan impactant */
+@keyframes hero-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.6),
+                 0 0 40px rgba(0, 255, 136, 0.3),
+                 0 0 60px rgba(0, 255, 136, 0.15);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.8),
+                 0 0 60px rgba(0, 255, 136, 0.5),
+                 0 0 90px rgba(0, 255, 136, 0.25);
+  }
+}
+
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-slogan {
+  animation: hero-appear 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  position: relative;
+}
+
+.hero-slogan-text {
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, #fff 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: border-flow 4s ease infinite, glow-pulse 3s ease-in-out infinite;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-slogan::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, transparent, var(--accent), transparent);
+  border-radius: 16px;
+  opacity: 0.15;
+  filter: blur(20px);
+  z-index: -1;
+  animation: border-flow 3s linear infinite;
+}
