@@ -11,9 +11,10 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Accueil" },
+  { href: "/concept", label: "Le Concept" },
   { href: "/a-propos", label: "À propos" },
   { href: "/connexion", label: "Connexion" },
-  { href: "/inscrire", label: "S’inscrire" },
+  { href: "/inscrire", label: "S'inscrire" },
 ];
 
 export default function Navbar() {
